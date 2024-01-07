@@ -1,18 +1,35 @@
-import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
-import Avatar from "@mui/material/Avatar"
-import LockIcon from "@mui/icons-material/Lock"
-import image from "../assets/result.png"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import { Link, useNavigate } from "react-router-dom"
-
-import TextField from "@mui/material/TextField"
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import LockIcon from "@mui/icons-material/Lock";
+import image from "../assets/result.png";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import { Form, Formik } from "formik";
+import { object, string } from "yup";
+import useAuthCalls from "../service/useAuthCalls";
 
 const Register = () => {
-  const navigate = useNavigate()
-
+  const { register } = useAuthCalls();
+  const registerSchema = object({
+    username : string().required("Kullanıcı adı girişi zorunludur."),
+    firstName : string().required("İsim girişi zorunludur."),
+    lastName : string().required("Soyisim girişi zorunludur."),
+    email: string()
+      .email("Lütfen geçerli bir e-posta giriniz.")
+      .required("E-posta girişi zorunludur."),
+    password: string()
+      .required("Şifre zorunludur.")
+      .min(8, "Şifre en az 8 karakter içermelidir.")
+      .max(16, "Şifre en fazla 16 karakter içermelidir.")
+      .matches(/\d+/, "Şifre en az bir rakam içermelidir.")
+      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir.")
+      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir.")
+      .matches(/[@$!%*?&]+/, "Şifre en az bir özel karakter (@$!%*?&) içermelidir.")
+  });
   return (
     <Container maxWidth="lg">
       <Grid
@@ -48,55 +65,97 @@ const Register = () => {
             mb={2}
             color="secondary.light"
           >
-            Register
+            Kayıt Olun
           </Typography>
 
-          <Box
-            component="form"
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          <Formik
+            initialValues={{
+              username: "",
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+            }}
+            validationSchema={registerSchema}
+            onSubmit={(values, actions) => {
+              register(values);
+              actions.resetForm();
+              actions.setSubmitting(false);
+            }}
           >
-            <TextField
-              label="User Name"
-              name="username"
-              id="userName"
-              type="text"
-              variant="outlined"
-            />
-            <TextField
-              label="First Name"
-              name="first_name"
-              id="firstName"
-              type="text"
-              variant="outlined"
-            />
-            <TextField
-              label="Last Name"
-              name="last_name"
-              id="last_name"
-              type="text"
-              variant="outlined"
-            />
-            <TextField
-              label="Email"
-              name="email"
-              id="email"
-              type="email"
-              variant="outlined"
-            />
-            <TextField
-              label="Password"
-              name="password"
-              id="password"
-              type="password"
-              variant="outlined"
-            />
-            <Button type="submit" variant="contained" size="large">
-              Submit
-            </Button>
-          </Box>
+            {({ handleChange, values, touched, errors, handleBlur }) => (
+              <Form>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <TextField
+                    label="Kullanıcı Adı"
+                    name="username"
+                    id="userName"
+                    type="text"
+                    variant="outlined"
+                    value={values.username}
+                    onChange={handleChange}
+                    error={touched.username && Boolean(errors.username)}
+                    helperText={errors.username}
+                    onBlur={handleBlur}
+                  />
+                  <TextField
+                    label="İsim"
+                    name="firstName"
+                    id="firstName"
+                    type="text"
+                    variant="outlined"
+                    value={values.firstName}
+                    onChange={handleChange}
+                    error={touched.firstName && Boolean(errors.firstName)}
+                    helperText={errors.firstName}
+                    onBlur={handleBlur}
+                  />
+                  <TextField
+                    label="Soyisim"
+                    name="lastName"
+                    id="lastName"
+                    type="text"
+                    variant="outlined"
+                    value={values.lastName}
+                    onChange={handleChange}
+                    error={touched.lastName && Boolean(errors.lastName)}
+                    helperText={errors.lastName}
+                    onBlur={handleBlur}
+                  />
+                  <TextField
+                    label="E-posta"
+                    name="email"
+                    id="email"
+                    type="email"
+                    variant="outlined"
+                    value={values.email}
+                    onChange={handleChange}
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={errors.email}
+                    onBlur={handleBlur}
+                  />
+                  <TextField
+                    label="Şifre"
+                    name="password"
+                    id="password"
+                    type="password"
+                    variant="outlined"
+                    value={values.password}
+                    onChange={handleChange}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={errors.password}
+                    onBlur={handleBlur}
+                  />
+                  <Button type="submit" variant="contained" size="large">
+                    Gönder
+                  </Button>
+                </Box>
+              </Form>
+            )}
+          </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/">Do you have an account?</Link>
+            <Link to="/">Hesabınız var mı?</Link>
           </Box>
         </Grid>
 
@@ -107,7 +166,7 @@ const Register = () => {
         </Grid>
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
