@@ -84,7 +84,7 @@ const Register = () => {
               variant="outlined"
             />
             <TextField
-              label="password"
+              label="Password"
               name="password"
               id="password"
               type="password"

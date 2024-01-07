@@ -1,16 +1,34 @@
-import Avatar from "@mui/material/Avatar"
-import Container from "@mui/material/Container"
-import Grid from "@mui/material/Grid"
-import Typography from "@mui/material/Typography"
-import LockIcon from "@mui/icons-material/Lock"
-import image from "../assets/result.png"
-import { Link } from "react-router-dom"
-import Box from "@mui/material/Box"
-import TextField from "@mui/material/TextField"
-import { Button } from "@mui/material"
+import Avatar from "@mui/material/Avatar";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import LockIcon from "@mui/icons-material/Lock";
+import image from "../assets/result.png";
+import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import { Form, Formik } from "formik";
+import { object, string } from "yup";
+import useAuthCalls from "../service/useAuthCalls";
 
 const Login = () => {
-    return (
+  const { login } = useAuthCalls()
+  
+  const loginSchema = object({
+    email: string()
+      .email("Lütfen geçerli bir e-posta giriniz.")
+      .required("E-posta girişi zorunludur."),
+    password: string()
+      .required("Şifre zorunludur.")
+      .min(8, "Şifre en az 8 karakter içermelidir.")
+      .max(16, "Şifre en fazla 16 karakter içermelidir.")
+      .matches(/\d+/, "Şifre en az bir rakam içermelidir.")
+      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir.")
+      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir.")
+      .matches(/[@$!%*?&]+/, "Şifre en az bir özel karakter (@$!%*?&) içermelidir.")
+  });
+  return (
     <Container maxWidth="lg">
       <Grid
         container
@@ -44,34 +62,54 @@ const Login = () => {
             mb={4}
             color="secondary.light"
           >
-            Login
+            Giriş
           </Typography>
-
-          <Box
-            component="form"
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={loginSchema}
+            onSubmit={(values, actions) => {
+              login(values)
+              actions.resetForm();
+              actions.setSubmitting(false);
+            }}
           >
-            <TextField
-              label="Email"
-              name="email"
-              id="email"
-              type="email"
-              variant="outlined"
-            />
-            <TextField
-              label="password"
-              name="password"
-              id="password"
-              type="password"
-              variant="outlined"
-            />
-            <Button variant="contained" type="submit">
-              Submit
-            </Button>
-          </Box>
+            {({ handleChange, values, touched, errors, handleBlur }) => (
+              <Form>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <TextField
+                    label="E-posta"
+                    name="email"
+                    id="email"
+                    type="email"
+                    variant="outlined"
+                    value={values.email}
+                    onChange={handleChange}
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={errors.email}
+                    onBlur={handleBlur}
+                  />
+                  <TextField
+                    label="Şifre"
+                    name="password"
+                    id="password"
+                    type="password"
+                    variant="outlined"
+                    value={values.password}
+                    onChange={handleChange}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={errors.password}
+                    onBlur={handleBlur}
+                  />
+                  <Button variant="contained" type="submit">
+                    Gönder
+                  </Button>
+                </Box>
+              </Form>
+            )}
+          </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/register">Do you have not an account?</Link>
+            <Link to="/register">Hesabınız yok mu?</Link>
           </Box>
         </Grid>
 
@@ -82,7 +120,7 @@ const Login = () => {
         </Grid>
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
