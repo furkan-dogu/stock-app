@@ -21,10 +21,10 @@ const useAuthCalls = () => {
         }
     }
 
-    const register = async (userInfo) => {
+    const register = async (registerInfo) => {
         dispatch(fetchStart())
         try {
-            const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/`, userInfo)
+            const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/`, registerInfo)
             dispatch(registerSuccess(data))
             toastSuccessNotify("Kayıt işlemi başarılı.")   
             navigate("/stock")   
@@ -34,9 +34,11 @@ const useAuthCalls = () => {
         }
     }
 
-    const logout = async () => {
+    const logout = async (token) => {
         try {
-            await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout/`)  
+            await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout/`, {
+                headers: { Authorization: `Token ${token}` }
+            })  
             dispatch(logoutSuccess())
             toastSuccessNotify("Çıkış işlemi başarılı.")  
             navigate("/")       

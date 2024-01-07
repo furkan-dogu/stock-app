@@ -89,7 +89,7 @@ const Register = () => {
                   <TextField
                     label="Kullanıcı Adı"
                     name="username"
-                    id="userName"
+                    id="username"
                     type="text"
                     variant="outlined"
                     value={values.username}
