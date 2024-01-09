@@ -3,16 +3,16 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { icons } from "../helper/MenuIcons";
+import { icons, iconAndTextStyle } from "../helper/MenuIcons";
 import { useNavigate } from "react-router-dom";
 
 const MenuListItems = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <List>
       {icons.map((item, index) => (
         <ListItem key={index} disablePadding onClick={() => navigate(item.url)}>
-          <ListItemButton>
+          <ListItemButton sx={iconAndTextStyle}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.title} />
           </ListItemButton>
