@@ -21,7 +21,7 @@ function Dashboard() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             STOCK APP
           </Typography>
-          {user && <Button color="inherit" onClick={() => logout()}>Çıkış Yap</Button>}
+          {user && <Button color="inherit" onClick={logout}>Çıkış Yap</Button>}
         </Toolbar>
       </AppBar>
     </Box>
