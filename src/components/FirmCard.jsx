@@ -8,10 +8,14 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import { iconStyle } from "../styles/globalStyle";
 import useStockCalls from "../service/useStockCalls";
+import EditFirmModal from "./EditFirmModal";
 
 export default function FirmCard({ firm }) {
   const { name, phone, address, image, _id } = firm;
   const { deleteStock } = useStockCalls();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Card
       sx={{
@@ -44,12 +48,13 @@ export default function FirmCard({ firm }) {
         {phone}
       </Typography>
       <CardActions>
-        <EditIcon sx={iconStyle} />
+        <EditIcon sx={iconStyle} onClick={handleOpen} />
         <DeleteOutlineIcon
           sx={iconStyle}
           onClick={() => deleteStock("firms", _id)}
         />
       </CardActions>
+      <EditFirmModal handleOpen={handleOpen} open={open} handleClose={handleClose} firm={firm}/>
     </Card>
   );
 }

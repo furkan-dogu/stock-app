@@ -37,7 +37,33 @@ const useStockCalls = () => {
     }
   };
 
-  return { getStocks, deleteStock };
+  const addStock = async (url, newData) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.post(`/${url}/`, newData);
+      toastSuccessNotify("İşlem başarıyla gerçekleşti.");
+      getStocks(url)
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("İşlem başarısız oldu.");
+      console.log(error);
+    }
+  };
+
+  const updateStock = async (url, id, data) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.put(`/${url}/${id}/`, data);
+      toastSuccessNotify("Veri bilgisi güncellendi.");
+      getStocks(url);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Veri güncellenemedi.");
+      console.log(error);
+    }
+  };
+
+  return { getStocks, deleteStock, addStock, updateStock };
 };
 
 export default useStockCalls;
