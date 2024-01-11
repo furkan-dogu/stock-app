@@ -21,7 +21,7 @@ export default function MediaCard() {
   return (
     <div>
       <Typography variant="h4" color={"error"} mb={3}>
-        Firmalar
+        Firmalar hello
       </Typography>
       <Button variant="contained" sx={{textTransform:"capitalize"}} onClick={handleOpen}>yeni firma</Button>
       <Grid container gap={2} mt={3} justifyContent={"center"}>
