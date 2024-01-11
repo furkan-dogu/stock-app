@@ -68,6 +68,7 @@ export default function NewFirmModal({ handleClose, open }) {
                 id="name"
                 type="text"
                 variant="outlined"
+                sx={{ marginTop: "1rem" }}
                 required
                 value={data.name}
                 onChange={handleChange}

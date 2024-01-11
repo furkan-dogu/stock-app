@@ -50,6 +50,7 @@ const useStockCalls = () => {
     }
   };
 
+
   const updateStock = async (url, id, data) => {
     dispatch(fetchStart());
     try {
@@ -64,6 +65,7 @@ const useStockCalls = () => {
   };
 
   return { getStocks, deleteStock, addStock, updateStock };
+
 };
 
 export default useStockCalls;
