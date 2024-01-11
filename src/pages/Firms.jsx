@@ -31,7 +31,7 @@ export default function MediaCard() {
       }}
     >
       {firms.map((item) => (
-        <Card sx={{ width: 300, height: 400 }} key={item.id}>
+        <Card sx={{ width: 300, height: 400 }} key={item._id}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {item.name}
