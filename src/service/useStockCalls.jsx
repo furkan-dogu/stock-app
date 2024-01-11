@@ -1,27 +1,30 @@
-import { fetchFail, fetchStart } from "../features/authSlice";
 import { useDispatch } from "react-redux";
-import { firmsSuccess } from "../features/stockSlice";
+import {
+  getStocksSuccess,
+  fetchFail,
+  fetchStart,
+} from "../features/stockSlice";
 import useAxios from "./useAxios";
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useStockCalls = () => {
-    const dispatch = useDispatch()
-    const { axiosWithToken } = useAxios()
-    
+  const dispatch = useDispatch();
+  const { axiosWithToken } = useAxios();
 
-    const getFirms = async () => {
-        dispatch(fetchStart())
-        try {
-            const {data} = await axiosWithToken("/firms/")
-            dispatch(firmsSuccess(data))
-            console.log(data)
-        } catch (error) {
-            dispatch(fetchFail())
-            console.log(error);
-        }
-        
+  const getStocks = async (url) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken(`/${url}/`);
+      const apiData = data.data;
+      dispatch(getStocksSuccess({ apiData, url }));
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Veri bilgilerine ulaşırken hata oluştu.");
+      console.log(error);
     }
+  };
 
-  return {getFirms}
-}
+  return { getStocks };
+};
 
-export default useStockCalls
+export default useStockCalls;

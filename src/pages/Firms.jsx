@@ -1,63 +1,31 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import { Stack } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import useStockCalls from "../service/useStockCalls";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { Grid } from "@mui/material";
+import FirmCard from '../components/FrimCard';
 
 export default function MediaCard() {
   const { firms } = useSelector((state) => state.stock);
-  const { getFirms } = useStockCalls();
+  const { getStocks } = useStockCalls();
   useEffect(() => {
-    getFirms();
+    getStocks("firms");
   }, []);
 
   return (
-    <Stack
-      spacing={{ xs: 1, sm: 2, md: 4 }}
-      useFlexGap
-      sx={{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {firms.map((item) => (
-        <Card sx={{ width: 300, height: 400 }} key={item._id}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {item.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {item.address}
-            </Typography>
-          </CardContent>
-          <CardMedia
-            component={"img"}
-            image={item.image}
-            title={item.name}
-            sx={{ objectFit: "contain", height: 140, padding:"8px" }}
-          />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary" sx={{textAlign:"center"}}>
-              {item.phone}
-            </Typography>
-          </CardContent>
-
-          <CardActions sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-            <EditIcon/>
-            <DeleteOutlineIcon/>
-          </CardActions>
-        </Card>
-      ))}
-    </Stack>
+    <div>
+      <Typography variant="h4" color={"error"} mb={3}>
+        Firmalar
+      </Typography>
+      <Button variant="contained" sx={{textTransform:"capitalize"}}>yeni firma</Button>
+      <Grid container gap={2} mt={3} justifyContent={"center"}>
+        {firms?.map((firm) => (
+          <Grid item key={firm._id}>
+            <FirmCard firm={firm} />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
   );
 }

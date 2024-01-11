@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   firms: [],
@@ -6,21 +6,29 @@ const initialState = {
   purchases: [],
   brands: [],
   sales: [],
+  categories: [],
   error: false,
   loading: false,
-}
+};
 
 const stockSlice = createSlice({
   name: "stock",
   initialState,
   reducers: {
-    firmsSuccess: (state, {payload}) => {
-      state.loading = false
-      state.firms = payload.data
+    fetchStart: (state) => {
+      state.loading = true;
+    },
+    getStocksSuccess: (state, { payload }) => {
+      state.loading = false;
+      state[payload.url] = payload.apiData;
+    },
+    fetchFail: (state) => {
+      state.loading = false;
+      state.error = true;
     },
   },
-})
+});
 
-export const {firmsSuccess} = stockSlice.actions
+export const { getStocksSuccess, fetchStart, fetchFail } = stockSlice.actions;
 
-export default stockSlice.reducer
+export default stockSlice.reducer;
