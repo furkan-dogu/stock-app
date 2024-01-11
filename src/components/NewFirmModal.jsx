@@ -107,7 +107,7 @@ export default function NewFirmModal({ handleClose, open }) {
                 onChange={handleChange}
               />
               <Button type="submit" variant="contained" size="large" sx={{ marginTop: "1rem" }}>
-                Gönder
+                Ekle
               </Button>
             </FormControl>
           </Box>

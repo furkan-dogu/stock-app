@@ -104,7 +104,7 @@ export default function EditFirmModal({ handleClose, open, firm }) {
                 onChange={handleChange}
               />
               <Button type="submit" variant="contained" size="large" sx={{ marginTop: "1rem" }}>
-                Gönder
+                Güncelle
               </Button>
             </FormControl>
           </Box>
