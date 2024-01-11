@@ -24,7 +24,20 @@ const useStockCalls = () => {
     }
   };
 
-  return { getStocks };
+  const deleteStock = async (url, id) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.delete(`/${url}/${id}/`);
+      toastSuccessNotify("Veri bilgisi silindi.");
+      getStocks(url);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Veri silinemedi.");
+      console.log(error);
+    }
+  };
+
+  return { getStocks, deleteStock };
 };
 
 export default useStockCalls;
