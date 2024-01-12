@@ -7,7 +7,7 @@ import { Grid } from "@mui/material";
 import FirmCard from "../components/FirmCard";
 import FirmModal from "../components/FirmModal";
 
-export default function MediaCard() {
+export default function Firms() {
   const { firms } = useSelector((state) => state.stock);
   const { getStocks } = useStockCalls();
   useEffect(() => {

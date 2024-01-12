@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function FirmModal({ handleClose, open, data, setData }) {
+export default function BrandModal({ handleClose, open, data, setData }) {
   const { addStock, updateStock } = useStockCalls();
 
   const handleChange = (e) => {
@@ -29,9 +29,9 @@ export default function FirmModal({ handleClose, open, data, setData }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (data._id) {
-      updateStock("firms", data._id, data);
+      updateStock("brands", data._id, data);
     } else {
-      addStock("firms", data);
+      addStock("brands", data);
     }
     handleClose();
   };
@@ -55,36 +55,13 @@ export default function FirmModal({ handleClose, open, data, setData }) {
           <Box sx={style} component={"form"} onSubmit={handleSubmit}>
             <FormControl sx={{ width: "100%" }}>
               <TextField
-                label="Firma Adı"
+                label="Marka Adı"
                 name="name"
                 id="name"
                 type="text"
                 variant="outlined"
-                sx={{ marginTop: "1rem" }}
                 required
                 value={data.name}
-                onChange={handleChange}
-              />
-              <TextField
-                label="Telefon"
-                name="phone"
-                id="phone"
-                type="text"
-                variant="outlined"
-                sx={{ marginTop: "1rem" }}
-                required
-                value={data.phone}
-                onChange={handleChange}
-              />
-              <TextField
-                label="Adres"
-                name="address"
-                id="address"
-                type="text"
-                variant="outlined"
-                sx={{ marginTop: "1rem" }}
-                required
-                value={data.address}
                 onChange={handleChange}
               />
               <TextField
