@@ -19,28 +19,22 @@ const style = {
   p: 4,
 };
 
-export default function EditFirmModal({ handleClose, open, firm }) {
+export default function NewFirmModal({ handleClose, open, data, setData }) {
+  const { addStock, updateStock } = useStockCalls();
 
-    const {_id, name, phone, address, image} = firm
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
-    const { updateStock } = useStockCalls();
-    const [data, setData] = React.useState({
-        _id,
-        name,
-        phone,
-        address,
-        image,
-    })
-
-    const handleChange = (e) => {
-      setData({...data, [e.target.name]: e.target.value})
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (data._id) {
+      updateStock("firms", data._id, data);
+    } else {
+      addStock("firms", data);
     }
-
-    const handleSubmit =(e) => {
-        e.preventDefault()
-        updateStock("firms", _id, data)
-        handleClose()
-    }
+    handleClose();
+  };
 
   return (
     <div>
@@ -66,6 +60,7 @@ export default function EditFirmModal({ handleClose, open, firm }) {
                 id="name"
                 type="text"
                 variant="outlined"
+                sx={{ marginTop: "1rem" }}
                 required
                 value={data.name}
                 onChange={handleChange}
@@ -103,8 +98,13 @@ export default function EditFirmModal({ handleClose, open, firm }) {
                 value={data.image}
                 onChange={handleChange}
               />
-              <Button type="submit" variant="contained" size="large" sx={{ marginTop: "1rem" }}>
-                Güncelle
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                sx={{ marginTop: "1rem" }}
+              >
+                Gönder
               </Button>
             </FormControl>
           </Box>
