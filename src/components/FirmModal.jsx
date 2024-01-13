@@ -4,20 +4,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import { FormControl, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import useStockCalls from "../service/useStockCalls";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { modalStyle } from "../styles/globalStyle";
 
 export default function FirmModal({ handleClose, open, data, setData }) {
   const { addStock, updateStock } = useStockCalls();
@@ -29,7 +18,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (data._id) {
-      updateStock("firms", data._id, data);
+      updateStock("firms", data);
     } else {
       addStock("firms", data);
     }
@@ -52,15 +41,14 @@ export default function FirmModal({ handleClose, open, data, setData }) {
         }}
       >
         <Fade in={open}>
-          <Box sx={style} component={"form"} onSubmit={handleSubmit}>
-            <FormControl sx={{ width: "100%" }}>
+          <Box sx={modalStyle} component={"form"} onSubmit={handleSubmit}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
                 label="Firma Adı"
                 name="name"
                 id="name"
                 type="text"
                 variant="outlined"
-                sx={{ marginTop: "1rem" }}
                 required
                 value={data.name}
                 onChange={handleChange}
@@ -71,7 +59,6 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 id="phone"
                 type="text"
                 variant="outlined"
-                sx={{ marginTop: "1rem" }}
                 required
                 value={data.phone}
                 onChange={handleChange}
@@ -82,7 +69,6 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 id="address"
                 type="text"
                 variant="outlined"
-                sx={{ marginTop: "1rem" }}
                 required
                 value={data.address}
                 onChange={handleChange}
@@ -93,7 +79,6 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 id="image"
                 type="text"
                 variant="outlined"
-                sx={{ marginTop: "1rem" }}
                 required
                 value={data.image}
                 onChange={handleChange}
@@ -102,11 +87,10 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 type="submit"
                 variant="contained"
                 size="large"
-                sx={{ marginTop: "1rem" }}
               >
-                Gönder
+                {data._id ? "Güncelle" : "Ekle"}
               </Button>
-            </FormControl>
+            </Box>
           </Box>
         </Fade>
       </Modal>

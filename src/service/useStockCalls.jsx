@@ -51,10 +51,10 @@ const useStockCalls = () => {
   };
 
 
-  const updateStock = async (url, id, data) => {
+  const updateStock = async (url, data) => {
     dispatch(fetchStart());
     try {
-      await axiosWithToken.put(`/${url}/${id}/`, data);
+      await axiosWithToken.put(`/${url}/${data._id}/`, data);
       toastSuccessNotify("Veri bilgisi güncellendi.");
       getStocks(url);
     } catch (error) {

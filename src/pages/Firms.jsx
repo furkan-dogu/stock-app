@@ -40,7 +40,7 @@ export default function Firms() {
       <Button
         variant="contained"
         sx={{ textTransform: "capitalize" }}
-        onClick={handleOpen}
+        onClick={handleOpen} 
       >
         yeni firma
       </Button>
