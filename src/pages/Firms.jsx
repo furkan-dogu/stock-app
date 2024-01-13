@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import FirmCard from "../components/FirmCard";
 import FirmModal from "../components/FirmModal";
+import Spinner from "../components/Spinner";
 
 export default function Firms() {
-  const { firms } = useSelector((state) => state.stock);
+  const { firms, loading } = useSelector((state) => state.stock);
   const { getStocks } = useStockCalls();
   useEffect(() => {
     getStocks("firms");
@@ -32,30 +33,31 @@ export default function Firms() {
     });
   };
 
-  return (
-    <div>
-      <Typography variant="h4" color={"error"} mb={3}>
-        Firms
-      </Typography>
-      <Button
-        variant="contained"
-        onClick={handleOpen} 
-      >
-        new firms
-      </Button>
-      <Grid container gap={2} mt={3} justifyContent={"center"}>
-        {firms?.map((firm) => (
-          <Grid item key={firm._id}>
-            <FirmCard firm={firm} handleOpen={handleOpen} setData={setData} />
-          </Grid>
-        ))}
-      </Grid>
-      <FirmModal
-        open={open}
-        handleClose={handleClose}
-        data={data}
-        setData={setData}
-      />
-    </div>
-  );
+  if (loading) {
+    return <Spinner />;
+  } else {
+    return (
+      <div>
+        <Typography variant="h4" color={"error"} mb={3}>
+          Firms
+        </Typography>
+        <Button variant="contained" onClick={handleOpen}>
+          new firms
+        </Button>
+        <Grid container gap={2} mt={3} justifyContent={"center"}>
+          {firms?.map((firm) => (
+            <Grid item key={firm._id}>
+              <FirmCard firm={firm} handleOpen={handleOpen} setData={setData} />
+            </Grid>
+          ))}
+        </Grid>
+        <FirmModal
+          open={open}
+          handleClose={handleClose}
+          data={data}
+          setData={setData}
+        />
+      </div>
+    );
+  }
 }

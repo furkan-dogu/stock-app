@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import useStockCalls from "../service/useStockCalls";
-import { modalStyle } from "../styles/globalStyle";
+import { modalStyle } from "../styles/globalStyles";
 
 export default function FirmModal({ handleClose, open, data, setData }) {
   const { addStock, updateStock } = useStockCalls();
@@ -83,11 +83,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 value={data.image}
                 onChange={handleChange}
               />
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-              >
+              <Button type="submit" variant="contained" size="large">
                 {data._id ? "update firm" : "add firm"}
               </Button>
             </Box>

@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import BrandModal from "../components/BrandModal";
 import BrandCard from "../components/BrandCard";
+import Spinner from "../components/Spinner";
 
 export default function Brands() {
-  const { brands } = useSelector((state) => state.stock);
+  const { brands, loading } = useSelector((state) => state.stock);
   const { getStocks } = useStockCalls();
   useEffect(() => {
     getStocks("brands");
@@ -28,30 +29,35 @@ export default function Brands() {
     });
   };
 
-  return (
-    <div>
-      <Typography variant="h4" color={"error"} mb={3}>
-        Brands
-      </Typography>
-      <Button
-        variant="contained"
-        onClick={handleOpen}
-      >
-        New Brand
-      </Button>
-      <Grid container gap={2} mt={3} justifyContent={"center"}>
-        {brands?.map((brand) => (
-          <Grid item key={brand._id}>
-            <BrandCard brand={brand} handleOpen={handleOpen} setData={setData} />
-          </Grid>
-        ))}
-      </Grid>
-      <BrandModal
-        open={open}
-        handleClose={handleClose}
-        data={data}
-        setData={setData}
-      />
-    </div>
-  );
+  if (loading) {
+    return <Spinner />;
+  } else {
+    return (
+      <div>
+        <Typography variant="h4" color={"error"} mb={3}>
+          Brands
+        </Typography>
+        <Button variant="contained" onClick={handleOpen}>
+          New Brand
+        </Button>
+        <Grid container gap={2} mt={3} justifyContent={"center"}>
+          {brands?.map((brand) => (
+            <Grid item key={brand._id}>
+              <BrandCard
+                brand={brand}
+                handleOpen={handleOpen}
+                setData={setData}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        <BrandModal
+          open={open}
+          handleClose={handleClose}
+          data={data}
+          setData={setData}
+        />
+      </div>
+    );
+  }
 }
