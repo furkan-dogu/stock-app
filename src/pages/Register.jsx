@@ -15,20 +15,20 @@ import useAuthCalls from "../service/useAuthCalls";
 const Register = () => {
   const { register } = useAuthCalls();
   const registerSchema = object({
-    username : string().required("Kullanıcı adı girişi zorunludur."),
-    firstName : string().required("İsim girişi zorunludur."),
-    lastName : string().required("Soyisim girişi zorunludur."),
+    username: string().required("Username entry is mandatory."),
+    firstName: string().required("First name entry is mandatory."),
+    lastName: string().required("Last name entry is mandatory."),
     email: string()
-      .email("Lütfen geçerli bir e-posta giriniz.")
-      .required("E-posta girişi zorunludur."),
-    password: string()
-      .required("Şifre zorunludur.")
-      .min(8, "Şifre en az 8 karakter içermelidir.")
-      .max(16, "Şifre en fazla 16 karakter içermelidir.")
-      .matches(/\d+/, "Şifre en az bir rakam içermelidir.")
-      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir.")
-      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir.")
-      .matches(/[@$!%*?&]+/, "Şifre en az bir özel karakter (@$!%*?&) içermelidir.")
+      .email("Please enter a valid e-mail.")
+      .required("E-mail entry is mandatory."),
+      password: string()
+      .required("Password is mandatory.")
+      .min(8, "The password must contain at least 8 characters.")
+      .max(16, "The password must contain a maximum of 16 characters.")
+      .matches(/\d+/, "The password must contain at least one number.")
+      .matches(/[a-z]/, "The password must contain at least one lower case letter.")
+      .matches(/[A-Z]/, "The password must contain at least one capital letter.")
+      .matches(/[@$!%*?&]+/, "The password must contain at least one special character (@$!%*?&).")
   });
   return (
     <Container maxWidth="lg">
@@ -65,7 +65,7 @@ const Register = () => {
             mb={2}
             color="secondary.light"
           >
-            Kayıt Olun
+            Register
           </Typography>
 
           <Formik
@@ -87,7 +87,7 @@ const Register = () => {
               <Form>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
-                    label="Kullanıcı Adı"
+                    label="User Name"
                     name="username"
                     id="username"
                     type="text"
@@ -99,7 +99,7 @@ const Register = () => {
                     onBlur={handleBlur}
                   />
                   <TextField
-                    label="İsim"
+                    label="First Name"
                     name="firstName"
                     id="firstName"
                     type="text"
@@ -111,7 +111,7 @@ const Register = () => {
                     onBlur={handleBlur}
                   />
                   <TextField
-                    label="Soyisim"
+                    label="Last Name"
                     name="lastName"
                     id="lastName"
                     type="text"
@@ -123,7 +123,7 @@ const Register = () => {
                     onBlur={handleBlur}
                   />
                   <TextField
-                    label="E-posta"
+                    label="E-mail"
                     name="email"
                     id="email"
                     type="email"
@@ -135,7 +135,7 @@ const Register = () => {
                     onBlur={handleBlur}
                   />
                   <TextField
-                    label="Şifre"
+                    label="Password"
                     name="password"
                     id="password"
                     type="password"
@@ -147,7 +147,7 @@ const Register = () => {
                     onBlur={handleBlur}
                   />
                   <Button type="submit" variant="contained" size="large">
-                    Gönder
+                    Submit
                   </Button>
                 </Box>
               </Form>
@@ -155,7 +155,7 @@ const Register = () => {
           </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/">Hesabınız var mı?</Link>
+            <Link to="/">Do you have an account?</Link>
           </Box>
         </Grid>
 

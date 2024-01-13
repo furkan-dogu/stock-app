@@ -31,14 +31,13 @@ export default function Brands() {
   return (
     <div>
       <Typography variant="h4" color={"error"} mb={3}>
-        Markalar
+        Brands
       </Typography>
       <Button
         variant="contained"
-        sx={{ textTransform: "capitalize" }}
         onClick={handleOpen}
       >
-        yeni marka
+        New Brand
       </Button>
       <Grid container gap={2} mt={3} justifyContent={"center"}>
         {brands?.map((brand) => (

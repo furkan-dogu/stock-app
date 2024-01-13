@@ -14,12 +14,12 @@ const useAuthCalls = () => {
         try {
             const { data } = await axiosPublic.post("/auth/login/", userInfo)
             dispatch(loginSuccess(data))
-            toastSuccessNotify("Giriş işlemi başarılı.")   
-            navigate("/stok")   
+            toastSuccessNotify("The login process is successful.")   
+            navigate("/stock")   
         } catch (error) {
             console.log(error)
             dispatch(fetchFail())
-            toastErrorNotify("Giriş işlemi başarısız oldu.")
+            toastErrorNotify("The login process failed.")
         }
     }
 
@@ -28,12 +28,12 @@ const useAuthCalls = () => {
         try {
             const { data } = await axiosPublic.post("/users/", registerInfo)
             dispatch(registerSuccess(data))
-            toastSuccessNotify("Kayıt işlemi başarılı.")   
-            navigate("/stok")   
+            toastSuccessNotify("The register process is successful.")   
+            navigate("/stock")   
         } catch (error) {
             console.log(error)
             dispatch(fetchFail())
-            toastErrorNotify("Kayıt işlemi başarısız oldu.")
+            toastErrorNotify("The register process failed.")
         }
     }
 
@@ -41,10 +41,10 @@ const useAuthCalls = () => {
         try {
             await axiosWithToken("/auth/logout/")
             dispatch(logoutSuccess())
-            toastSuccessNotify("Çıkış işlemi başarılı.")       
+            toastSuccessNotify("The logout process is successful.")       
         } catch (error) {
             console.log(error)
-            toastErrorNotify("Çıkış işlemi başarısız oldu.")
+            toastErrorNotify("The logout process failed.")
         }
     }
 

@@ -35,14 +35,13 @@ export default function Firms() {
   return (
     <div>
       <Typography variant="h4" color={"error"} mb={3}>
-        Firmalar
+        Firms
       </Typography>
       <Button
         variant="contained"
-        sx={{ textTransform: "capitalize" }}
         onClick={handleOpen} 
       >
-        yeni firma
+        new firms
       </Button>
       <Grid container gap={2} mt={3} justifyContent={"center"}>
         {firms?.map((firm) => (

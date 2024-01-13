@@ -19,7 +19,7 @@ const useStockCalls = () => {
       dispatch(getStocksSuccess({ apiData, url }));
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Veri bilgilerine ulaşırken hata oluştu.");
+      toastErrorNotify("Error accessing data information.");
       console.log(error);
     }
   };
@@ -28,11 +28,11 @@ const useStockCalls = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.delete(`/${url}/${id}/`);
-      toastSuccessNotify("Veri bilgisi silindi.");
+      toastSuccessNotify("Data information deleted.");
       getStocks(url);
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Veri silinemedi.");
+      toastErrorNotify("Data could not be deleted");
       console.log(error);
     }
   };
@@ -41,11 +41,11 @@ const useStockCalls = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.post(`/${url}/`, newData);
-      toastSuccessNotify("İşlem başarıyla gerçekleşti.");
+      toastSuccessNotify("The operation was successful.");
       getStocks(url)
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("İşlem başarısız oldu.");
+      toastErrorNotify("The operation has failed.");
       console.log(error);
     }
   };
@@ -55,11 +55,11 @@ const useStockCalls = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.put(`/${url}/${data._id}/`, data);
-      toastSuccessNotify("Veri bilgisi güncellendi.");
+      toastSuccessNotify("Data information has been updated.");
       getStocks(url);
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Veri güncellenemedi.");
+      toastErrorNotify("Data could not be updated.");
       console.log(error);
     }
   };

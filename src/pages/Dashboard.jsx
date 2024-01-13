@@ -65,7 +65,7 @@ function Dashboard(props) {
           </Typography>
           {user && (
             <Button color="inherit" onClick={logout}>
-              Çıkış Yap
+              Logout
             </Button>
           )}
         </Toolbar>

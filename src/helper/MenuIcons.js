@@ -8,33 +8,33 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 export const icons = [
   {
     icon: <SpaceDashboardIcon />,
-    title: "Tablolar",
-    url: "/stok/",
+    title: "Dashboard",
+    url: "/stock/",
   },
   {
-    title: "Alımlar",
+    title: "Purchases",
     icon: <ShoppingCartIcon />,
-    url: "/stok/alimlar/",
+    url: "/stock/purchases/",
   },
   {
-    title: "Satışlar",
+    title: "Sales",
     icon: <AttachMoneyIcon />,
-    url: "/stok/satislar/",
+    url: "/stock/sales/",
   },
   {
-    title: "Firmalar",
+    title: "Firms",
     icon: <StoreIcon />,
-    url: "/stok/firmalar/",
+    url: "/stock/firms/",
   },
   {
-    title: "Markalar",
+    title: "Brands",
     icon: <StarsIcon />,
-    url: "/stok/markalar/",
+    url: "/stock/brands/",
   },
   {
-    title: "Ürünler",
+    title: "Products",
     icon: <InventoryIcon />,
-    url: "/stok/urunler/",
+    url: "/stock/products/",
   },
 ];
 

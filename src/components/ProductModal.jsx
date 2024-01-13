@@ -2,24 +2,27 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
+import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import { modalStyle } from "../styles/globalStyle";
 import useStockCalls from "../service/useStockCalls";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useSelector } from "react-redux";
 
-export default function ProductModal({ open, handleClose, info, setInfo }) {
+export default function ProductModal({ open, handleClose, data, setData }) {
   const { addStock } = useStockCalls();
-
-  const { products, categories, brands } = useSelector((state) => state.stock);
+  const { brands, categories } = useSelector((state) => state.stock);
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  console.log(info);
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStock("products", info);
+    addStock("products", {
+      ...data,
+      categoryId: data.categoryId,
+      brandId: data.brandId,
+      name: data.name,
+    });
     handleClose();
   };
 
@@ -38,50 +41,55 @@ export default function ProductModal({ open, handleClose, info, setInfo }) {
             onSubmit={handleSubmit}
           >
             <FormControl fullWidth>
-              <InputLabel id="categories">Kategoriler</InputLabel>
+              <InputLabel id="category-select-label">Categories</InputLabel>
               <Select
-                labelId="categories"
-                id="categories"
-                value={info?.category || ""}
-                label="Kategoriler"
-                onChange={(e) => setInfo({ ...info, category: e.target.value })}
+                labelId="category-select-label"
+                id="category-select"
+                name="categoryId"
+                value={data.categoryId || ""}
+                label="Categories"
+                onChange={handleChange}
+                required
               >
                 {categories.map((category) => (
-                  <MenuItem key={category?._id} value={category?.name}>
-                    {category?.name}
+                  <MenuItem key={category._id} value={category._id}>
+                    {category.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
+
             <FormControl fullWidth>
-              <InputLabel id="categories">Markalar</InputLabel>
+              <InputLabel id="brand-select-label">Brands</InputLabel>
               <Select
-                labelId="categories"
-                id="categories"
-                value={info?.brand || ""}
-                label="Markalar"
-                onChange={(e) => setInfo({ ...info, brand: e.target.value })}
+                labelId="brand-select-label"
+                id="brand-select"
+                name="brandId"
+                value={data.brandId || ""}
+                label="Brands"
+                onChange={handleChange}
+                required
               >
                 {brands.map((brand) => (
-                  <MenuItem key={brand?._id} value={brand?.name}>
-                    {brand?.name}
+                  <MenuItem key={brand._id} value={brand._id}>
+                    {brand.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
+
             <TextField
-              label="Ürün Adı"
+              label="Product Name"
               name="name"
               id="name"
               type="text"
               variant="outlined"
-              value={info.name}
+              value={data.name}
               onChange={handleChange}
               required
             />
-
             <Button type="submit" variant="contained" size="large">
-              {info._id ? "Güncelle" : "Ekle"}
+              add product
             </Button>
           </Box>
         </Box>

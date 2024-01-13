@@ -17,16 +17,16 @@ const Login = () => {
   
   const loginSchema = object({
     email: string()
-      .email("Lütfen geçerli bir e-posta giriniz.")
-      .required("E-posta girişi zorunludur."),
+      .email("Please enter a valid e-mail.")
+      .required("E-mail entry is mandatory."),
     password: string()
-      .required("Şifre zorunludur.")
-      .min(8, "Şifre en az 8 karakter içermelidir.")
-      .max(16, "Şifre en fazla 16 karakter içermelidir.")
-      .matches(/\d+/, "Şifre en az bir rakam içermelidir.")
-      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir.")
-      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir.")
-      .matches(/[@$!%*?&]+/, "Şifre en az bir özel karakter (@$!%*?&) içermelidir.")
+      .required("Password is mandatory.")
+      .min(8, "The password must contain at least 8 characters.")
+      .max(16, "The password must contain a maximum of 16 characters.")
+      .matches(/\d+/, "The password must contain at least one number.")
+      .matches(/[a-z]/, "The password must contain at least one lower case letter.")
+      .matches(/[A-Z]/, "The password must contain at least one capital letter.")
+      .matches(/[@$!%*?&]+/, "The password must contain at least one special character (@$!%*?&).")
   });
   return (
     <Container maxWidth="lg">
@@ -62,7 +62,7 @@ const Login = () => {
             mb={4}
             color="secondary.light"
           >
-            Giriş
+            Submit
           </Typography>
           <Formik
             initialValues={{ email: "", password: "" }}
@@ -77,7 +77,7 @@ const Login = () => {
               <Form>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
-                    label="E-posta"
+                    label="E-mail"
                     name="email"
                     id="email"
                     type="email"
@@ -89,7 +89,7 @@ const Login = () => {
                     onBlur={handleBlur}
                   />
                   <TextField
-                    label="Şifre"
+                    label="Password"
                     name="password"
                     id="password"
                     type="password"
@@ -101,7 +101,7 @@ const Login = () => {
                     onBlur={handleBlur}
                   />
                   <Button variant="contained" type="submit">
-                    Gönder
+                    Submit
                   </Button>
                 </Box>
               </Form>
@@ -109,7 +109,7 @@ const Login = () => {
           </Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Link to="/kayit">Hesabınız yok mu?</Link>
+            <Link to="/register">Don't you have an account?</Link>
           </Box>
         </Grid>
 

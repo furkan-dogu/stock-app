@@ -44,7 +44,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
           <Box sx={modalStyle} component={"form"} onSubmit={handleSubmit}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
-                label="Firma Adı"
+                label="Firm Name"
                 name="name"
                 id="name"
                 type="text"
@@ -54,7 +54,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 onChange={handleChange}
               />
               <TextField
-                label="Telefon"
+                label="Phone"
                 name="phone"
                 id="phone"
                 type="text"
@@ -64,7 +64,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 onChange={handleChange}
               />
               <TextField
-                label="Adres"
+                label="Address"
                 name="address"
                 id="address"
                 type="text"
@@ -74,7 +74,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 onChange={handleChange}
               />
               <TextField
-                label="Resim"
+                label="Image"
                 name="image"
                 id="image"
                 type="text"
@@ -88,7 +88,7 @@ export default function FirmModal({ handleClose, open, data, setData }) {
                 variant="contained"
                 size="large"
               >
-                {data._id ? "Güncelle" : "Ekle"}
+                {data._id ? "update firm" : "add firm"}
               </Button>
             </Box>
           </Box>

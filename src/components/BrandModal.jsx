@@ -44,7 +44,7 @@ export default function BrandModal({ handleClose, open, data, setData }) {
           <Box sx={modalStyle} component={"form"} onSubmit={handleSubmit}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
-                label="Marka Adı"
+                label="Brand Name"
                 name="name"
                 id="name"
                 type="text"
@@ -54,7 +54,7 @@ export default function BrandModal({ handleClose, open, data, setData }) {
                 onChange={handleChange}
               />
               <TextField
-                label="Resim"
+                label="Image"
                 name="image"
                 id="image"
                 type="text"
@@ -68,7 +68,7 @@ export default function BrandModal({ handleClose, open, data, setData }) {
                 variant="contained"
                 size="large"
               >
-                {data._id ? "Güncelle" : "Ekle"}
+                {data._id ? "update brand" : "add brand"}
               </Button>
             </Box>
           </Box>

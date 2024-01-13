@@ -9,7 +9,7 @@ const Products = () => {
 
   const { getStocks } = useStockCalls()
 
-  const [info, setInfo] = useState({
+  const [data, setData] = useState({
     name: "",
     phone: "",
     address: "",
@@ -20,7 +20,7 @@ const Products = () => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
-    setInfo({ name: "", phone: "", address: "", image: "" })
+    setData({ name: "", phone: "", address: "", image: "" })
   }
 
   useEffect(() => {
@@ -32,17 +32,17 @@ const Products = () => {
   return (
     <div>
       <Typography variant="h4" color="error" mb={3}>
-        Ürünler
+        Products
       </Typography>
-      <Button variant="contained" onClick={handleOpen} sx={{ mb: 3, textTransform: "capitalize" }}>
-        Yeni Ürün
+      <Button variant="contained" onClick={handleOpen} sx={{ mb: 3 }}>
+        New Product
       </Button>
 
       <ProductModal
         open={open}
         handleClose={handleClose}
-        info={info}
-        setInfo={setInfo}
+        data={data}
+        setData={setData}
       />
 
       <ProductTable />
