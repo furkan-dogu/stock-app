@@ -1,29 +1,28 @@
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import TextField from "@mui/material/TextField"
-import Modal from "@mui/material/Modal"
-import { modalStyle } from "../styles/globalStyle"
-import useStockCalls from "../service/useStockCalls"
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Modal from "@mui/material/Modal";
+import { modalStyle } from "../styles/globalStyle";
+import useStockCalls from "../service/useStockCalls";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export default function ProductModal({ open, handleClose, info, setInfo }) {
-  const { addStock, updateStock } = useStockCalls()
+  const { addStock } = useStockCalls();
+
+  const { products, categories, brands } = useSelector((state) => state.stock);
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value })
-  }
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
 
-  console.log(info)
+  console.log(info);
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if (info._id) {
-        updateStock("firms", info)
-    } else {
-        addStock("firms", info)
-    }
-    handleClose()
-  }
+    e.preventDefault();
+    addStock("products", info);
+    handleClose();
+  };
 
-  console.log(info)
   return (
     <div>
       <Modal
@@ -38,8 +37,40 @@ export default function ProductModal({ open, handleClose, info, setInfo }) {
             component="form"
             onSubmit={handleSubmit}
           >
+            <FormControl fullWidth>
+              <InputLabel id="categories">Kategoriler</InputLabel>
+              <Select
+                labelId="categories"
+                id="categories"
+                value={info?.category || ""}
+                label="Kategoriler"
+                onChange={(e) => setInfo({ ...info, category: e.target.value })}
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category?._id} value={category?.name}>
+                    {category?.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="categories">Markalar</InputLabel>
+              <Select
+                labelId="categories"
+                id="categories"
+                value={info?.brand || ""}
+                label="Markalar"
+                onChange={(e) => setInfo({ ...info, brand: e.target.value })}
+              >
+                {brands.map((brand) => (
+                  <MenuItem key={brand?._id} value={brand?.name}>
+                    {brand?.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <TextField
-              label="Firma Adı"
+              label="Ürün Adı"
               name="name"
               id="name"
               type="text"
@@ -48,36 +79,7 @@ export default function ProductModal({ open, handleClose, info, setInfo }) {
               onChange={handleChange}
               required
             />
-            <TextField
-              label="Telefon"
-              name="phone"
-              id="phone"
-              type="tel"
-              variant="outlined"
-              value={info.phone}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              label="Adres"
-              name="address"
-              id="address"
-              type="text"
-              variant="outlined"
-              value={info.address}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              label="Resim"
-              name="image"
-              id="image"
-              type="url"
-              variant="outlined"
-              value={info.image}
-              onChange={handleChange}
-              required
-            />
+
             <Button type="submit" variant="contained" size="large">
               {info._id ? "Güncelle" : "Ekle"}
             </Button>
@@ -85,5 +87,5 @@ export default function ProductModal({ open, handleClose, info, setInfo }) {
         </Box>
       </Modal>
     </div>
-  )
+  );
 }
