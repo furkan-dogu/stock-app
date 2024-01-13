@@ -30,10 +30,7 @@ export default function ProductTable() {
       flex: 1,
       headerAlign: "center",
       align: "center",
-      valueGetter: (params) => {
-        console.log(params);
-        return params.row.categoryId.name;
-      },
+      valueGetter: (params) => params.row.categoryId.name,
     },
     {
       field: "brandId",

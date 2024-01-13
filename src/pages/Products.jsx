@@ -11,16 +11,19 @@ const Products = () => {
 
   const [data, setData] = useState({
     name: "",
-    phone: "",
-    address: "",
-    image: "",
+    categoryId: "",
+    brandId: "",
   })
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
-    setData({ name: "", phone: "", address: "", image: "" })
+    setData({     
+    name: "",
+    categoryId: "",
+    brandId: "", 
+  })
   }
 
   useEffect(() => {
