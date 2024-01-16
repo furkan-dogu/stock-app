@@ -5,10 +5,10 @@ import useStockCalls from "../service/useStockCalls";
 import ProductModal from "../components/ProductModal";
 import ProductTable from "../components/ProductTable";
 import { useSelector } from "react-redux";
-import Spinner from "../components/Spinner";
+import TableSkeleton, { ErrorMsg, NoDataMsg } from "../components/DataFetchMsg";
 
 const Products = () => {
-  const { loading } = useSelector((state) => state.stock);
+  const { products, loading, error } = useSelector((state) => state.stock);
 
   const { getStocks } = useStockCalls();
 
@@ -35,29 +35,31 @@ const Products = () => {
     getStocks("brands");
   }, []);
 
-  if (loading) {
-    return <Spinner />
-  } else {
-    return (
-      <div>
-        <Typography variant="h4" color="error" mb={3}>
-          Products
-        </Typography>
-        <Button variant="contained" onClick={handleOpen} sx={{ mb: 3 }}>
-          New Product
-        </Button>
+  return (
+    <div>
+      <Typography variant="h4" color="error" mb={3}>
+        Products
+      </Typography>
+      <Button variant="contained" onClick={handleOpen} sx={{ mb: 3 }}>
+        New Product
+      </Button>
 
-        <ProductModal
-          open={open}
-          handleClose={handleClose}
-          data={data}
-          setData={setData}
-        />
+      <ProductModal
+        open={open}
+        handleClose={handleClose}
+        data={data}
+        setData={setData}
+      />
 
-        <ProductTable />
-      </div>
-    );
-  }
+      {error && <ErrorMsg />}
+
+      {loading && products.map((item) => <TableSkeleton />)}
+
+      {!error && !loading && !products.length && <NoDataMsg />}
+
+      {!loading && !error && products.length > 0 && <ProductTable />}
+    </div>
+  );
 };
 
 export default Products;

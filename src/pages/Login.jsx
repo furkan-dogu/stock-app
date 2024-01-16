@@ -11,11 +11,9 @@ import { Button } from "@mui/material";
 import { Form, Formik } from "formik";
 import { object, string } from "yup";
 import useAuthCalls from "../service/useAuthCalls";
-import { useSelector } from "react-redux";
-import Spinner from "../components/Spinner";
 
 const Login = () => {
-  const { loading } = useSelector((state) => state.auth);
+
   const { login } = useAuthCalls();
 
   const loginSchema = object({
@@ -40,9 +38,7 @@ const Login = () => {
         "The password must contain at least one special character (@$!%*?&)."
       ),
   });
-  if (loading) {
-    return <Spinner />;
-  } else {
+
     return (
       <Container maxWidth="lg">
         <Grid
@@ -138,7 +134,6 @@ const Login = () => {
         </Grid>
       </Container>
     );
-  }
 };
 
 export default Login;

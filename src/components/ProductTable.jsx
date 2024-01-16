@@ -1,36 +1,33 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import IconButton from "@mui/material/IconButton";
 import useStockCalls from "../service/useStockCalls";
 
 export default function ProductTable() {
   const { deleteStock } = useStockCalls();
   const { products } = useSelector((state) => state.stock);
 
-  function getRowId(row) {
-    return row._id;
-  }
+  const getRowId = (row) => row._id;
 
   const columns = [
     {
       field: "_id",
       headerName: "#",
-      flex: 1.4,
+      flex: 1.2,
       headerAlign: "center",
       align: "center",
       sortable: false,
-      valueGetter: (params) => params.value.slice(-6),
+      valueGetter: (params) => params.value?.slice(-6),
     },
     {
       field: "categoryId",
       headerName: "Category",
-      flex: 1,
+      flex: 1.4,
       headerAlign: "center",
       align: "center",
-      valueGetter: (params) => params.row.categoryId.name,
+      valueGetter: (params) => params.row?.categoryId?.name,
     },
     {
       field: "brandId",
@@ -38,7 +35,7 @@ export default function ProductTable() {
       flex: 1.2,
       headerAlign: "center",
       align: "center",
-      valueGetter: (params) => params.row.brandId.name,
+      valueGetter: (params) => params.row?.brandId?.name,
     },
     {
       field: "name",
@@ -51,25 +48,23 @@ export default function ProductTable() {
       field: "quantity",
       headerName: "Stock",
       type: "number",
-      flex: 1.5,
+      flex: 1.2,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "actions",
       headerName: "Actions",
-      sortable: false,
-      flex: 1.5,
+      type: "actions",
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => (
-        <IconButton
-          aria-label="delete"
-          onClick={() => deleteStock("products", params.row._id)}
-        >
-          <DeleteForeverIcon />
-        </IconButton>
-      ),
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<DeleteForeverIcon />}
+          onClick={() => deleteStock("products", params.id)}
+          label="Delete"
+        />,
+      ],
     },
   ];
   return (
@@ -78,20 +73,11 @@ export default function ProductTable() {
         autoHeight
         rows={products}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5, 10, 25, 50, 100]}
         checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
-        slots={{
-          toolbar: GridToolbar,
-        }}
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
   );

@@ -10,7 +10,6 @@ import { iconStyle } from "../styles/globalStyles";
 import useStockCalls from "../service/useStockCalls";
 
 export default function FirmCard({ firm, handleOpen, setData }) {
-  const { name, phone, address, image, _id } = firm;
   const { deleteStock } = useStockCalls();
 
   const handleEdit = () => {
@@ -33,27 +32,27 @@ export default function FirmCard({ firm, handleOpen, setData }) {
     >
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {name}
+          {firm?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {address}
+          {firm?.address}
         </Typography>
       </CardContent>
       <CardMedia
         component="img"
-        alt={name}
+        alt={firm?.name}
         height="140"
-        image={image}
+        image={firm?.image}
         sx={{ objectFit: "contain" }}
       />
       <Typography variant="body2" color="text.secondary">
-        {phone}
+        {firm?.phone}
       </Typography>
       <CardActions>
         <EditIcon sx={iconStyle} onClick={handleEdit} />
         <DeleteOutlineIcon
           sx={iconStyle}
-          onClick={() => deleteStock("firms", _id)}
+          onClick={() => deleteStock("firms", firm?._id)}
         />
       </CardActions>
     </Card>

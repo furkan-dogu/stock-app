@@ -17,12 +17,7 @@ export default function ProductModal({ open, handleClose, data, setData }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStock("products", {
-      ...data,
-      categoryId: data.categoryId,
-      brandId: data.brandId,
-      name: data.name,
-    });
+    addStock("products", data);
     handleClose();
   };
 

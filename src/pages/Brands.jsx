@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import BrandModal from "../components/BrandModal";
 import BrandCard from "../components/BrandCard";
-import Spinner from "../components/Spinner";
+import { ErrorMsg, NoDataMsg, Spinner } from "../components/DataFetchMsg";
 
 export default function Brands() {
-  const { brands, loading } = useSelector((state) => state.stock);
+  const { brands, loading, error } = useSelector((state) => state.stock);
   const { getStocks } = useStockCalls();
   useEffect(() => {
     getStocks("brands");
@@ -40,23 +40,32 @@ export default function Brands() {
         <Button variant="contained" onClick={handleOpen}>
           New Brand
         </Button>
-        <Grid container gap={2} mt={3} justifyContent={"center"}>
-          {brands?.map((brand) => (
-            <Grid item key={brand._id}>
-              <BrandCard
-                brand={brand}
-                handleOpen={handleOpen}
-                setData={setData}
-              />
-            </Grid>
-          ))}
-        </Grid>
+
         <BrandModal
           open={open}
           handleClose={handleClose}
           data={data}
           setData={setData}
         />
+        {error && <ErrorMsg />}
+
+        {loading && <Spinner />}
+
+        {!error && !loading && !brands.length && <NoDataMsg />}
+
+        {!loading && !error && brands.length > 0 && (
+          <Grid container gap={2} mt={3} justifyContent={"center"}>
+            {brands?.map((brand) => (
+              <Grid item key={brand._id}>
+                <BrandCard
+                  brand={brand}
+                  handleOpen={handleOpen}
+                  setData={setData}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </div>
     );
   }

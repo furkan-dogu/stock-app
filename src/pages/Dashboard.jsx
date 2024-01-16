@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 import useAuthCalls from "../service/useAuthCalls";
 import MenuListItems from "../components/MenuListItems";
 import { Outlet } from "react-router-dom";
-import Spinner from "../components/Spinner";
 
 const drawerWidth = 200;
 
@@ -21,7 +20,7 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const { logout } = useAuthCalls();
 
@@ -41,9 +40,6 @@ function Dashboard(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  if (loading) {
-    return <Spinner />;
-  } else {
     return (
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -132,7 +128,6 @@ function Dashboard(props) {
         </Box>
       </Box>
     );
-  }
 }
 
 export default Dashboard;
