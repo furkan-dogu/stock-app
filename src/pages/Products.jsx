@@ -53,7 +53,7 @@ const Products = () => {
 
       {error && <ErrorMsg />}
 
-      {loading && products.map((item) => <TableSkeleton />)}
+      {loading && products.map((item) => <TableSkeleton key={item} />)}
 
       {!error && !loading && !products.length && <NoDataMsg />}
 

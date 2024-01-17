@@ -63,11 +63,7 @@ export default function BrandModal({ handleClose, open, data, setData }) {
                 value={data.image}
                 onChange={handleChange}
               />
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-              >
+              <Button type="submit" variant="contained" size="large">
                 {data._id ? "update brand" : "add brand"}
               </Button>
             </Box>

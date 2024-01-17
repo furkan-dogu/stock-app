@@ -61,7 +61,7 @@ export default function ProductTable() {
       getActions: (params) => [
         <GridActionsCellItem
           icon={<DeleteForeverIcon />}
-          onClick={() => deleteStock("products", params.id)}
+          onClick={() => deleteStock("products", params?.id)}
           label="Delete"
         />,
       ],

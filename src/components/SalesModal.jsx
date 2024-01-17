@@ -45,12 +45,12 @@ export default function SalesModal({ open, handleClose, data, setData }) {
                 labelId="brand-select-label"
                 id="brand-select"
                 name="brandId"
-                value={data.brandId || ""}
+                value={data?.brandId || ""}
                 label="Brands"
                 onChange={handleChange}
                 required
               >
-                {brands.map((brand) => (
+                {brands?.map((brand) => (
                   <MenuItem key={brand._id} value={brand._id}>
                     {brand.name}
                   </MenuItem>
@@ -63,12 +63,12 @@ export default function SalesModal({ open, handleClose, data, setData }) {
                 labelId="product-select-label"
                 id="product-select"
                 name="productId"
-                value={data.productId || ""}
+                value={data?.productId || ""}
                 label="Products"
                 onChange={handleChange}
                 required
               >
-                {products.map((product) => (
+                {products?.map((product) => (
                   <MenuItem key={product._id} value={product._id}>
                     {product.name}
                   </MenuItem>

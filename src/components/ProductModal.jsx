@@ -41,12 +41,12 @@ export default function ProductModal({ open, handleClose, data, setData }) {
                 labelId="category-select-label"
                 id="category-select"
                 name="categoryId"
-                value={data.categoryId || ""}
+                value={data?.categoryId || ""}
                 label="Categories"
                 onChange={handleChange}
                 required
               >
-                {categories.map((category) => (
+                {categories?.map((category) => (
                   <MenuItem key={category._id} value={category._id}>
                     {category.name}
                   </MenuItem>
@@ -60,12 +60,12 @@ export default function ProductModal({ open, handleClose, data, setData }) {
                 labelId="brand-select-label"
                 id="brand-select"
                 name="brandId"
-                value={data.brandId || ""}
+                value={data?.brandId || ""}
                 label="Brands"
                 onChange={handleChange}
                 required
               >
-                {brands.map((brand) => (
+                {brands?.map((brand) => (
                   <MenuItem key={brand._id} value={brand._id}>
                     {brand.name}
                   </MenuItem>
