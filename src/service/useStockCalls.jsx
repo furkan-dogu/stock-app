@@ -3,6 +3,9 @@ import {
   getStocksSuccess,
   fetchFail,
   fetchStart,
+  getPurchasesTableSuccess,
+  getSalesTableSuccess,
+  getProductTableSuccess,
 } from "../features/stockSlice";
 import useAxios from "./useAxios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
@@ -23,6 +26,62 @@ const useStockCalls = () => {
       console.log(error);
     }
   };
+
+  const getPurchasesTable = async () => {
+    dispatch(fetchStart());
+    try {
+      const [products, purchases, brands, firms] = await Promise.all([
+        axiosWithToken("/products/"),
+        axiosWithToken("/purchases/"),
+        axiosWithToken("/brands/"),
+        axiosWithToken("/firms/"),
+      ])
+      dispatch(getPurchasesTableSuccess([
+        products?.data?.data,
+        purchases?.data?.data,
+        brands?.data?.data,
+        firms?.data?.data,
+      ]))
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  }
+
+  const getSalesTable = async () => {
+    dispatch(fetchStart());
+    try {
+      const [sales, brands, products] = await Promise.all([
+        axiosWithToken("/sales/"),
+        axiosWithToken("/brands/"),
+        axiosWithToken("/products/"),
+      ])
+      dispatch(getSalesTableSuccess([
+        sales?.data?.data,
+        brands?.data?.data,
+        products?.data?.data,
+      ]))
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  }
+
+  const getProductTable = async () => {
+    dispatch(fetchStart());
+    try {
+      const [products, categories, brands] = await Promise.all([
+        axiosWithToken("/products/"),
+        axiosWithToken("/categories/"),
+        axiosWithToken("/brands/"),
+      ])
+      dispatch(getProductTableSuccess([
+        products?.data?.data,
+        categories?.data?.data,
+        brands?.data?.data,
+      ]))
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  }
 
   const deleteStock = async (url, id) => {
     dispatch(fetchStart());
@@ -64,7 +123,7 @@ const useStockCalls = () => {
     }
   };
 
-  return { getStocks, deleteStock, addStock, updateStock };
+  return { getStocks, deleteStock, addStock, updateStock, getPurchasesTable, getSalesTable, getProductTable };
 
 };
 

@@ -6,11 +6,13 @@ import SalesModal from "../components/SalesModal";
 import SalesTable from "../components/SalesTable";
 import { useSelector } from "react-redux";
 import TableSkeleton, { ErrorMsg, NoDataMsg } from "../components/DataFetchMsg";
+import { Container } from "@mui/material";
 
 const Sales = () => {
   const { sales, loading, error } = useSelector((state) => state.stock);
 
-  const { getStocks } = useStockCalls();
+  // const { getStocks } = useStockCalls();
+  const { getSalesTable } = useStockCalls();
 
   const [data, setData] = useState({
     brandId: "",
@@ -32,13 +34,15 @@ const Sales = () => {
   };
 
   useEffect(() => {
-    getStocks("sales");
-    getStocks("brands");
-    getStocks("products");
+    // getStocks("sales");
+    // getStocks("brands");
+    // getStocks("products");
+
+    getSalesTable()
   }, []);
 
   return (
-    <div>
+    <Container maxWidth="xl">
       <Typography variant="h4" color="error" mb={3}>
         Sales
       </Typography>
@@ -57,10 +61,10 @@ const Sales = () => {
 
       {loading && sales.map((item) => <TableSkeleton key={item} />)}
 
-      {!error && !loading && !sales.length && <NoDataMsg />}
+      {!loading && !sales.length && <NoDataMsg />}
 
-      {!loading && !error && sales.length > 0 && <SalesTable handleOpen={handleOpen} setData={setData} data={data} />}
-    </div>
+      {!loading && sales.length > 0 && <SalesTable handleOpen={handleOpen} setData={setData} data={data} />}
+    </Container>
   );
 };
 

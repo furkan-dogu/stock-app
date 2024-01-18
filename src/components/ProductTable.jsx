@@ -15,7 +15,8 @@ export default function ProductTable() {
     {
       field: "_id",
       headerName: "#",
-      flex: 1.2,
+      flex: 1,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       sortable: false,
@@ -24,7 +25,8 @@ export default function ProductTable() {
     {
       field: "categoryId",
       headerName: "Category",
-      flex: 1.4,
+      flex: 1.5,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.categoryId?.name,
@@ -32,7 +34,8 @@ export default function ProductTable() {
     {
       field: "brandId",
       headerName: "Brand",
-      flex: 1.2,
+      flex: 1.5,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.brandId?.name,
@@ -41,6 +44,7 @@ export default function ProductTable() {
       field: "name",
       headerName: "Name",
       flex: 1.5,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
     },
@@ -48,7 +52,8 @@ export default function ProductTable() {
       field: "quantity",
       headerName: "Stock",
       type: "number",
-      flex: 1.2,
+      flex: 1,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
     },
@@ -56,6 +61,7 @@ export default function ProductTable() {
       field: "actions",
       headerName: "Actions",
       type: "actions",
+      minWidth: 75,
       headerAlign: "center",
       align: "center",
       getActions: (params) => [
@@ -74,7 +80,6 @@ export default function ProductTable() {
         rows={products}
         columns={columns}
         pageSizeOptions={[5, 10, 25, 50, 100]}
-        checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
         slots={{ toolbar: GridToolbar }}

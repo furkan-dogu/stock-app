@@ -10,7 +10,8 @@ import TableSkeleton, { ErrorMsg, NoDataMsg } from "../components/DataFetchMsg";
 const Products = () => {
   const { products, loading, error } = useSelector((state) => state.stock);
 
-  const { getStocks } = useStockCalls();
+  // const { getStocks } = useStockCalls();
+  const { getProductTable } = useStockCalls();
 
   const [data, setData] = useState({
     name: "",
@@ -30,9 +31,11 @@ const Products = () => {
   };
 
   useEffect(() => {
-    getStocks("products");
-    getStocks("categories");
-    getStocks("brands");
+    // getStocks("products");
+    // getStocks("categories");
+    // getStocks("brands");
+
+    getProductTable()
   }, []);
 
   return (

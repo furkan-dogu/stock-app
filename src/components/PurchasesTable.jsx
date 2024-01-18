@@ -3,50 +3,45 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import useStockCalls from "../service/useStockCalls";
 
-export default function PurchasesTable({handleOpen,data,setData}) {
+export default function PurchasesTable({ handleOpen, data, setData }) {
   const { deleteStock } = useStockCalls();
   const { purchases } = useSelector((state) => state.stock);
 
   const getRowId = (row) => row._id;
 
-const handleEdit = (params) => {
+  const handleEdit = (params) => {
     handleOpen();
     setData({
-        ...data,
-        _id: params?.id,
-        firmId: params?.row?.firmId?._id,
-        brandId: params?.row?.brandId?._id,
-        productId: params?.row?.productId?._id,
-        price: params?.row?.price,
-        quantity: params?.row?.quantity,
+      ...data,
+      _id: params?.id,
+      firmId: params?.row?.firmId?._id,
+      brandId: params?.row?.brandId?._id,
+      productId: params?.row?.productId?._id,
+      price: params?.row?.price,
+      quantity: params?.row?.quantity,
     });
-};
+  };
 
   const columns = [
     {
-        field: "updatedAt",
-        headerName: "Date",
-        flex: 1.4,
-        headerAlign: "center",
-        sortable: false,
-        align: "center",
-        valueGetter: (params) => {
-            const originalDate = new Date(params.value);
-            const day = originalDate.getDate();
-            const formattedDay = day < 10 ? `0${day}` : day
-            const month = originalDate.getMonth() + 1;
-            const formattedMonth = month < 10 ? `0${month}` : month;
-            const formattedDate = `${formattedDay}.${formattedMonth}.${originalDate.getFullYear()}`;
-            return formattedDate;
-        },
+      field: "updatedAt",
+      headerName: "Date",
+      flex: 1,
+      minWidth: 100,
+      headerAlign: "center",
+      sortable: false,
+      align: "center",
+      valueGetter: (params) =>
+        new Date(params.row.createdAt).toLocaleDateString("tr-TR"),
     },
     {
       field: "firmId",
       headerName: "Firm",
-      flex: 1.2,
+      flex: 1.5,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.firmId?.name,
@@ -54,7 +49,8 @@ const handleEdit = (params) => {
     {
       field: "brandId",
       headerName: "Brand",
-      flex: 1.2,
+      flex: 1.5,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.brandId?.name,
@@ -62,7 +58,8 @@ const handleEdit = (params) => {
     {
       field: "productId",
       headerName: "Product",
-      flex: 1.4,
+      flex: 1.5,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.productId?.name,
@@ -70,7 +67,8 @@ const handleEdit = (params) => {
     {
       field: "quantity",
       headerName: "Quantity",
-      flex: 1.5,
+      flex: 1,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.quantity,
@@ -79,7 +77,8 @@ const handleEdit = (params) => {
       field: "price",
       headerName: "Price",
       type: "number",
-      flex: 1.2,
+      flex: 1,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       valueGetter: (params) => params.row?.price,
@@ -88,28 +87,32 @@ const handleEdit = (params) => {
       field: "amount",
       headerName: "Amount",
       type: "number",
-      flex: 1.2,
+      flex: 1,
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
-      valueGetter: (params) => params.row?.amount
+      valueGetter: (params) => params.row?.amount,
     },
     {
       field: "actions",
       headerName: "Actions",
       type: "actions",
+      minWidth: 75,
       headerAlign: "center",
       align: "center",
       getActions: (params) => [
-        <GridActionsCellItem icon={<EditIcon/>} onClick={() => handleEdit(params)}
-        label="Edit" />,
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          onClick={() => handleEdit(params)}
+          label="Edit"
+        />,
         <GridActionsCellItem
           icon={<DeleteForeverIcon />}
           onClick={() => deleteStock("purchases", params.id)}
           label="Delete"
-        />,       
+        />,
       ],
     },
-
   ];
   return (
     <Box sx={{ width: "100%" }}>
@@ -118,7 +121,6 @@ const handleEdit = (params) => {
         rows={purchases}
         columns={columns}
         pageSizeOptions={[5, 10, 25, 50, 100]}
-        checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
         slots={{ toolbar: GridToolbar }}

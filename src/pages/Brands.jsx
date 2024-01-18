@@ -51,9 +51,9 @@ export default function Brands() {
 
         {loading && <Spinner />}
 
-        {!error && !loading && !brands.length && <NoDataMsg />}
+        {!loading && !brands.length && <NoDataMsg />}
 
-        {!loading && !error && brands.length > 0 && (
+        {!loading && brands.length > 0 && (
           <Grid container gap={2} mt={3} justifyContent={"center"}>
             {brands?.map((brand) => (
               <Grid item key={brand._id}>

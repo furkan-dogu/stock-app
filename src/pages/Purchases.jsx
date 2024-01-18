@@ -6,11 +6,13 @@ import PurchasesModal from "../components/PurchasesModal";
 import PurchasesTable from "../components/PurchasesTable";
 import { useSelector } from "react-redux";
 import TableSkeleton, { ErrorMsg, NoDataMsg } from "../components/DataFetchMsg";
+import { Container } from "@mui/material";
 
 const Purchases = () => {
   const { purchases, loading, error } = useSelector((state) => state.stock);
 
-  const { getStocks } = useStockCalls();
+  // const { getStocks } = useStockCalls();
+  const { getPurchasesTable } = useStockCalls();
 
   const [data, setData] = useState({
     firmId: "",
@@ -34,14 +36,16 @@ const Purchases = () => {
   };
 
   useEffect(() => {
-    getStocks("purchases");
-    getStocks("firms");
-    getStocks("brands");
-    getStocks("products");
+    // getStocks("purchases");
+    // getStocks("firms");
+    // getStocks("brands");
+    // getStocks("products");
+
+    getPurchasesTable()
   }, []);
 
   return (
-    <div>
+    <Container maxWidth="xl">
       <Typography variant="h4" color="error" mb={3}>
         Purchases
       </Typography>
@@ -62,8 +66,8 @@ const Purchases = () => {
 
       {!error && !loading && !purchases.length && <NoDataMsg />}
 
-      {!loading && !error && purchases.length > 0 && <PurchasesTable handleOpen={handleOpen} setData={setData} data={data} />}
-    </div>
+      {!error && !loading && purchases.length > 0 && <PurchasesTable handleOpen={handleOpen} setData={setData} data={data} />}
+    </Container>
   );
 };
 
