@@ -6,7 +6,7 @@
 
 ## About the Project
 
-This project, created with React, includes a web application where you can register or log in with your own email or Google account. It is used to obtain information about movies and TV shows, and to view reviews
+This project, developed with React, is a single-page online web application. It allows you to manage and receive orders. Additionally, it includes an inventory system with the ability to add, edit, delete, and view products, companies, brands, sales, and purchases.
 
 ## Table of Contents
 
