@@ -73,7 +73,7 @@ const Login = () => {
               mb={4}
               color="secondary.light"
             >
-              Submit
+              Login
             </Typography>
             <Formik
               initialValues={{ email: "", password: "" }}
