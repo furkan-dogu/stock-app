@@ -1,4 +1,4 @@
-# Movie App
+# Stock App
 
 <div align="center">
   <img src="./src/assets/stock-app.gif" />
