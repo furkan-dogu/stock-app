@@ -8,6 +8,9 @@
 
 This project, developed with React, is a single-page online web application. It allows you to manage and receive orders. Additionally, it includes an inventory system with the ability to add, edit, delete, and view products, companies, brands, sales, and purchases.
 
+<p>E-Mail: admin@site.com,</p>
+<p>Password: aA?123456,</p>
+
 ## Table of Contents
 
 - [Features](#features)

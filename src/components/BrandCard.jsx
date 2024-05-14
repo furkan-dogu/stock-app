@@ -38,9 +38,8 @@ export default function BrandCard({ brand, handleOpen, setData }) {
       <CardMedia
         component="img"
         alt={brand?.name}
-        height="200"
         image={brand?.image}
-        sx={{ objectFit: "contain" }}
+        sx={{ objectFit: "contain", height: 200}}
       />
       <CardActions>
         <EditIcon sx={iconStyle} onClick={handleEdit} />
