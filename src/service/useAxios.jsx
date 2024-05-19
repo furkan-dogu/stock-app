@@ -12,7 +12,7 @@ const useAxios = () => {
 
   const axiosPublic = axios.create({
     // baseURL: `${process.env.REACT_APP_BASE_URL}`,
-    baseURL: "https://stock-api-nodejs.vercel.app/",
+    baseURL: "https://stock-api-nodejs.vercel.app",
   });
   
   return { axiosWithToken, axiosPublic };
