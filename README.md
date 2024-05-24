@@ -23,6 +23,11 @@ This project, developed with React, is a single-page online web application. It 
 
 [Stock App](https://stock-app-theta-ten.vercel.app/stock/)
 
+## Backend
+
+- [Live](https://stock-api-drab.vercel.app/)
+- [Codes](https://github.com/furkan-dogu/StockAPI)
+
 ## Features
 
 - Login and register operations
